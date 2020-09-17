@@ -10,3 +10,4 @@ fs.read('./data/Relacao+de+Servidores.csv', async (err, data)=>{
   }
   console.log(await neatCsv(data))
 })
+
