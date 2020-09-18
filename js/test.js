@@ -131,10 +131,6 @@ function showTramitacaoDeProjeto(jsonObj) {
   tabelaVeriadores.appendChild(document.createElement('td')).innerHTML = `Vereador José Carlos de Oliveira.`
   tabelaVeriadores.appendChild(document.createElement('td')).innerHTML = `Número de projetos: ${vereador_José_Carlos_de_Oliveira}`
 
-
-
-
-  console.log(vereador_Tiago_Tito)
 }
 
 
