@@ -1,0 +1,8 @@
+
+caminho para os salario
+
+http://www.mgcidades.com.br/index.php?option=com_contpubl&idcid=314480&mgcidades=1
+
+1 - acesso a informacao
+2 - remuneracao  mensal dos servidores publicos
+3 - seleciona o mes
