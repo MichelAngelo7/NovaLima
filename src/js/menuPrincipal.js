@@ -4,15 +4,25 @@ export default class MenuPrincipal{
     const nav = document.createElement('nav')
     nav.classList.add('menuPrincipal')
 
-    //div menu principal
-    const menuPrincipal = document.createElement('div')
-    const menuPrincipalUl = document.createElement('ul')
+    //lista
+    const lista = document.createElement('ul')
+    nav.appendChild(lista)
+    
+
+    //cria o elemento home
     const home = document.createElement('li')
-
-    menuPrincipal.appendChild(home).innerHTML = "home"
-
-    nav.appendChild(menuPrincipal)
-    menuPrincipal.appendChild(menuPrincipalUl)
+    const homeTexto = document.createTextNode('Home')
+    home.appendChild(homeTexto)
+  
+    //cria o elemento veriadores
+    const veriadores = document.createElement('li')
+    const veriadoresTexto = document.createTextNode('Veriadores')
+    veriadores.appendChild(veriadoresTexto)
+    
+    //adiciona os elementos
+    lista.appendChild(home)
+    home.appendChild(veriadores)
+    
 
     return nav
 
