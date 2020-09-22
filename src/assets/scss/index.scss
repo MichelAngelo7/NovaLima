@@ -1,4 +1,9 @@
 $cor-botao-padrao: #fff;
 $cor-bg-botao-padrao: #13b3e6;
 
-@import 'botao'
+@import 'body';
+@import 'botao';
+//dados veriador
+@import './dadosVeriador/dadosVeriador.scss';
+@import './dadosVeriador/dadosVeriadorTexto.scss';
+@import './dadosVeriador/dadosVeriadorImg.scss'
