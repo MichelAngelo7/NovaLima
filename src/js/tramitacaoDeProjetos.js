@@ -1,11 +1,9 @@
 import menuPrincipal from './menuPrincipal'
+import lerDadosTramitacao from './dados/lerDadosTramitacao'
 import '../assets/scss/tramitacaoDeProjetos.scss'
 
 //impotação do menu
 const menu = new menuPrincipal
-
-
-
 
 //requisição dos dados via json
 const requestURL = 'https://raw.githubusercontent.com/MichelAngelo7/NovaLima/\
@@ -17,10 +15,8 @@ request.open('GET', requestURL)
 request.responseType = 'json'
 request.send()
 
-
 request.onload = function () {
   var tramitacaoDeProjetos = request.response
-
   showTramitacaoDeProjeto(tramitacaoDeProjetos)
 }
 
@@ -32,13 +28,8 @@ body.appendChild(menu.nav())
 
 const div1 = document.createElement('div')
 
-
 const tabelaVeriadores = document.createElement('table')
 tabelaVeriadores.classList.add('tabelaVeriadores')
-
-
-const p = document.createElement('p')
-p.innerHTML = 'Terceiro'
 
 function showTramitacaoDeProjeto(jsonObj) {
   let tramitacao = jsonObj['0']
@@ -50,18 +41,18 @@ function showTramitacaoDeProjeto(jsonObj) {
   div1.innerHTML = `Número de leis em tramitação:  ${tramitacao.length + 1}`
 
 
-  var vereador_Tiago_Tito = 0
-  var vereador_Ederson_Sebastião_Pinto = 0
-  var vereador_Álvaro_Alonso_Perez_Morais_de_Azevedo = 0
-  var Vereador_Alessandro_Luiz_Bonifácio = 0
-  var vereador_Wesley_de_Jesus_Silva = 0
-  var vereador_José_Geraldo_Guedes = 0
-  var vereador_Fausto_Niquini_Ferreira = 0
-  var vereador_Silvânio_Aguiar_Silva = 0
-  var vereador_Flávio_de_Almeida = 0
-  var vereador_José_Carlos_de_Oliveira = 0
+  let vereador_Tiago_Tito = 0
+  let vereador_Ederson_Sebastião_Pinto = 0
+  let vereador_Álvaro_Alonso_Perez_Morais_de_Azevedo = 0
+  let Vereador_Alessandro_Luiz_Bonifácio = 0
+  let vereador_Wesley_de_Jesus_Silva = 0
+  let vereador_José_Geraldo_Guedes = 0
+  let vereador_Fausto_Niquini_Ferreira = 0
+  let vereador_Silvânio_Aguiar_Silva = 0
+  let vereador_Flávio_de_Almeida = 0
+  let vereador_José_Carlos_de_Oliveira = 0
 
-  for (var j = 0; j < tramitacao.length; j++) {
+  for (let j = 0; j < tramitacao.length; j++) {
     if (tramitacao[j]['Autoria'] == "Vereador Tiago Tito.") {
       vereador_Tiago_Tito++
     }
@@ -93,26 +84,16 @@ function showTramitacaoDeProjeto(jsonObj) {
       vereador_José_Carlos_de_Oliveira++
     }
 
-    //  var texto = document.createTextNode(tramitacao[j]['Autoria'] + '\n' +'\n' + tramitacao[j]['Identificação'])
-    //  div3.insertBefore(texto, div3.childNodes[0])
-
   }
-  //div para conter os elementos isso ajuda no layout
-  const div = document.createElement('div')
-  body.appendChild(div)
+   
 
-  //cria uma lista
-  const lista = document.createElement('ul')
-  div.appendChild(lista)
+  //lista.appendChild(tiagoTito).innerHTML = `<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`
+  //lista.appendChild(tiagoTito).innerHTML =`Vereador Tiago Tito`
 
-  //cria o elemento home
-  const tiagoTito = document.createElement('li')
+  //tiagoTito.appendChild(`<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`)
+  //tiagoTito.innerHTML = `<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`
+  //tiagoTito.innerHTML = `Vereador Tiago Tito`
 
-  // tiagoTito.appendChild(`<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`)
-  // tiagoTito.innerHTML = `<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`
-  // tiagoTito.innerHTML = `Vereador Tiago Tito`
-
-  lista.appendChild(tiagoTito)
 
   tabelaVeriadores.appendChild(document.createElement('tr'))
   tabelaVeriadores.appendChild(document.createElement('td')).innerHTML = `<img   src="https://www.cmnovalima.mg.gov.br//wp-content//uploads//2015//11//tiago-195x260.jpg">`
