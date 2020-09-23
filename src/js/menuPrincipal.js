@@ -19,13 +19,13 @@ export default class MenuPrincipal{
   
     //cria o elemento veriadores
     const vereadores = document.createElement('li')
-    vereadores.innerHTML =  '<a href="vereadores.html">Veriadores</a>'
+    vereadores.innerHTML =  '<a href="vereadores.html">Vereadores</a>'
     
 
     //tramitacaoDeProjetos
     const tramitacaoDeProjetos = document.createElement('li')
     tramitacaoDeProjetos.innerHTML =
-    '<a href="#">Tramitação De Projetos</a>' 
+    '<a href="tramitacaoDeProjetos.html">Tramitação De Projetos</a>' 
     
     //adiciona os elementos
     lista.appendChild(home)

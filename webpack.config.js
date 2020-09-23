@@ -10,7 +10,8 @@ module.exports = {
   mode: modoDev ? 'development' : 'production',
   entry:{
     index: './src/js/principal.js',
-    vereadores: './src/js/dadosVereadores.js'
+    vereadores: './src/js/dadosVereadores.js',
+    tramitacaoDeProjetos: './src/js/tramitacaoDeProjetos.js'
   },
   output: {
     filename: '[name].[hash:20].js',
@@ -45,6 +46,12 @@ module.exports = {
       chunks: ['vereadores'],
       filename: 'vereadores.html'
   }),
+  new HtmlWebpackPlugin({
+    template: './src/tramitacaoDeProjetos.html',
+    inject: true,
+    chunks: ['tramitacaoDeProjetos'],
+    filename: 'tramitacaoDeProjetos.html'
+}),
      new MiniCssExtractPlugin({
        filename: "[name].[contenthash].css",
        chunkFilename: "[id].[contenthash].css"
