@@ -18,8 +18,8 @@ export default class MenuPrincipal{
     home.innerHTML= '<a href="index.html">Home</a>'
   
     //cria o elemento veriadores
-    const veriadores = document.createElement('li')
-    veriadores.innerHTML =  '<a href="#">Veriadores</a>'
+    const vereadores = document.createElement('li')
+    vereadores.innerHTML =  '<a href="vereadores.html">Veriadores</a>'
     
 
     //tramitacaoDeProjetos
@@ -29,7 +29,7 @@ export default class MenuPrincipal{
     
     //adiciona os elementos
     lista.appendChild(home)
-    lista.appendChild(veriadores)
+    lista.appendChild(vereadores)
     lista.appendChild(tramitacaoDeProjetos)
 
     return nav
