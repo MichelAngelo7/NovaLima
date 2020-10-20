@@ -1,0 +1,10 @@
+$cor-botao-padrao: #fff;
+$cor-bg-botao-padrao: #13b3e6;
+
+@import 'body';
+@import 'botao';
+//menu Principal
+@import './menuPrincipal/menuPincipal.scss';
+
+
+
