@@ -6,7 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
 from matplotlib import pyplot as plt
-
+from nltk.probability import FreqDist
 
 """
 extrair_texto_pdf
@@ -14,18 +14,22 @@ Pode ser um pouco lenta devido a conexão
 com a internet.
 
 """
-
 def extrair_texto_pdf(url):
     resposta = requests.get(url)
     with io.BytesIO(resposta.content) as abrir_pdf:
         text = extract_text(abrir_pdf)
         #text = text.rstrip().replace('\n', '').lower()
     return text    
+
+def data_reuniao(url):
+    pegar_data_reuniao = RegexpTokenizer('\-\d*\-\d*\-\d*')
+    pegar_data_reuniao = pegar_data_reuniao.tokenize(url)
+    return pegar_data_reuniao
     
+
 def dados_ata(text):
     presentes = []
-    #pegar_data_reuniao = RegexpTokenizer('\-\d*\-\d*\-\d*')
-    #pegar_data_reuniao = pegar_data_reuniao.tokenize(url)
+    
     with open('../Dados/Vereadores.txt','r',encoding='utf-8') as vereadores_txt:
         vereadores = vereadores_txt.read()
 
@@ -49,7 +53,7 @@ def dados_ata(text):
         else:
             return "Não"
 
-    #print(f"Data da reúnião: {pegar_data_reuniao}")
+    
     print(f"Número de Vereadores presentes: {len(presentes)} ")
     print(f"Lista com os Vereadores Presentes: {presentes}")
     print(f"Houve Reunião: {houve_reuniao()}")
@@ -102,3 +106,12 @@ def filtos(text):
     resultado6 = [resultado5 for resultado5 in resultado5 if resultado5 not in stop_words_custom]
     
     return resultado6
+
+def palavras_frequentes(resultado):
+    
+    with open('../Dados/pontuacao.txt','r',encoding='utf-8') as pontuacao_txt:
+        pontuacao = pontuacao_txt.read()
+        
+    fd = FreqDist(resultado)
+    pesquisar = [fd for fd, _ in fd.most_common(5) if fd not in pontuacao]
+    return pesquisar
