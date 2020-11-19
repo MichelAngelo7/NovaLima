@@ -35,17 +35,29 @@ def dados_ata(text):
 
     with open('../Dados/Apelidos.txt','r',encoding='utf-8') as apelidos_txt:
         apelidos = apelidos_txt.read()
+            
         
-        
-    for nomes in vereadores.split('\n'):  
+    for nomes in vereadores.split('\n'):
+        if nomes == "a presença de todos os vereadores":
+            presentes.append(vereadores.split('\n'))
+        else:    
             if nomes in text:
                 if nomes not in presentes:
                     presentes.append(nomes)
-
-    for apelido in apelidos.split('\n'):
-                 if apelido in text:
-                    if apelido not in presentes:
-                         presentes.append(apelido)
+            else:
+                for apelido in apelidos.split('\n'):
+                     if apelido in text:
+                            if apelido == 'boi':
+                                presentes.append('José Carlos de Oliveira')
+                            if apelido == 'Alessandro  Coxinha':
+                                presentes.append('Alessandro Luiz Bonifácio')
+                            if apelido == 'Álvaro  Azevedo':
+                                presentes.append('Álvaro Alonso Perez Morais de Azevedo')
+                            if apelido == 'Fausto  Niquini':
+                                    presentes.append('Fausto Niquini Ferreira')
+                            if apelido == 'Wesley':
+                                    presentes.append('Wesley de Jesus Silva')
+                            
 
     def houve_reuniao():
         if (len(presentes)> 8):
@@ -54,8 +66,8 @@ def dados_ata(text):
             return "Não"
 
     
-    print(f"Número de Vereadores presentes: {len(presentes)} ")
-    print(f"Lista com os Vereadores Presentes: {presentes}")
+    print(f"Número de Vereadores presentes: {len(sorted(set(presentes)))} ")
+    print(f"Lista com os Vereadores Presentes: {sorted(set(presentes))}")
     print(f"Houve Reunião: {houve_reuniao()}")
     
     
