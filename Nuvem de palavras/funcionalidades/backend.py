@@ -7,6 +7,10 @@ from nltk.corpus import stopwords
 from wordcloud import WordCloud
 from matplotlib import pyplot as plt
 from nltk.probability import FreqDist
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from bs4 import BeautifulSoup
+import time
 
 """
 extrair_texto_pdf
@@ -127,3 +131,41 @@ def palavras_frequentes(resultado):
     fd = FreqDist(resultado)
     pesquisar = [fd for fd, _ in fd.most_common(5) if fd not in pontuacao]
     return pesquisar
+
+def diconario(pesquisar):
+    
+    url = 'https://www.dicio.com.br/'
+    
+    options = Options()
+    options.headless = True
+    driver = webdriver.Firefox()
+    
+    driver.get(url)
+    time.sleep(5)
+    
+    significados = []
+    
+    for i  in pesquisar:
+        driver.refresh()
+        time.sleep(5)
+        driver.get(url)
+        time.sleep(5)
+        campo_exercicio = driver.find_element_by_id("q")
+        campo_exercicio.send_keys(i)
+        time.sleep(5)
+        comfirmar = driver.find_element_by_id('q')
+        comfirmar.send_keys(u'\ue007')
+        time.sleep(5)
+        definicao = driver.find_element_by_xpath("//p[@class='significado textonovo']")
+        conteudo_definicao = definicao.get_attribute('outerHTML')
+        sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
+        p = sopa.find(name='p')
+        significados.append(i)
+        significados.append(p.get_text())
+        time.sleep(5)
+       
+    
+    
+    driver.quit() 
+    
+    return significados
