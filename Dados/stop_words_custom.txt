@@ -742,3 +742,6 @@ azevedo
 último
 única
 dr.
+aprovado
+ausente
+rejeitado
