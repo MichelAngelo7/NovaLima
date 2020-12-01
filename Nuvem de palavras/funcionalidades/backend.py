@@ -28,7 +28,7 @@ def extrair_texto_pdf(url):
 def data_reuniao(url):
     pegar_data_reuniao = RegexpTokenizer('\-\d*\-\d*\-\d*')
     pegar_data_reuniao = pegar_data_reuniao.tokenize(url)
-    return pegar_data_reuniao
+    return str(pegar_data_reuniao).replace('-','/')[3:11]
     
 
 def dados_ata(text):
@@ -64,13 +64,14 @@ def dados_ata(text):
                             
 
     def houve_reuniao():
-        if (len(presentes)> 8):
+        if (len(sorted(set(presentes)))> 8):
             return "Sim"
         else:
             return "Não"
 
     
     print(f"Número de Vereadores presentes: {len(sorted(set(presentes)))} ")
+    print(f"Número de Vereadores ausentes: {10 - len(sorted(set(presentes)))} ")
     print(f"Lista com os Vereadores Presentes: {sorted(set(presentes))}")
     print(f"Houve Reunião: {houve_reuniao()}")
     
@@ -82,22 +83,34 @@ def nuvem_palavras(data, title = None):
     plt.title(title, size = 25)
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.show()
+    #print(data) # remover 
     
     
 def filtos(text):
     text = text.lower()
     tokens = word_tokenize(text)
     
-    tokenizer_projetos2020 = RegexpTokenizer('\d*.\d*d*/\d*')
-    numero_projetos2020 = tokenizer_projetos2020.tokenize(text)
+    tokenizer_datas = RegexpTokenizer('\d*/\d*/\d*')
+    datas_padrao = tokenizer_datas.tokenize(text)
+     
+    tokenizer_barra_digitos = RegexpTokenizer('\d*/\d*')
+    barra_digitos = tokenizer_barra_digitos.tokenize(text)
     
+    tokenizer_ponto_digitos = RegexpTokenizer('\d*\.\d*')
+    ponto_digitos = tokenizer_ponto_digitos.tokenize(text)
     
-    tokenizer_projetos2019 = RegexpTokenizer('\d*d*/\d*')
-    numero_projetos2019 = tokenizer_projetos2019.tokenize(text)
+    tokenizer_digito_ponto_barra = RegexpTokenizer('\d*.\d*/\d*')  
+    digito_ponto_barra = tokenizer_digito_ponto_barra.tokenize(text)
     
-    tokenizer_digit = RegexpTokenizer('^[ 0-9]+$')
+    tokenizer_monetario = RegexpTokenizer('\d*.\d*,\d*.')  
+    monetario = tokenizer_monetario.tokenize(text)
+    
+    tokenizer_ordinais_digitos = RegexpTokenizer('\d*\º')
+    ordinais_digitos = tokenizer_ordinais_digitos.tokenize(text)   
+        
+    tokenizer_digit = RegexpTokenizer('\d*')
     digitos = tokenizer_digit.tokenize(text)
-    
+       
     with open('../Dados/pontuacao.txt','r',encoding='utf-8') as pontuacao_txt:
         pontuacao = pontuacao_txt.read()
                
@@ -113,15 +126,25 @@ def filtos(text):
     
     resultado2 = [resultado1 for resultado1 in resultado1 if resultado1 not in pontuacao]
     
-    resultado3 = [resultado2 for resultado2 in resultado2 if resultado2 not in numero_projetos2020]
+    resultado3 = [resultado2 for resultado2 in resultado2 if resultado2 not in datas_padrao]
     
-    resultado4 = [resultado3 for resultado3 in resultado3 if resultado3 not in numero_projetos2019]
+    resultado4 = [resultado3 for resultado3 in resultado3 if resultado3 not in barra_digitos]
     
-    resultado5 = [resultado4 for resultado4 in resultado4 if resultado4 not in nomes_remover]
+    resultado5 = [resultado4 for resultado4 in resultado4 if resultado4 not in ponto_digitos]
     
-    resultado6 = [resultado5 for resultado5 in resultado5 if resultado5 not in stop_words_custom]
+    resultado6 = [resultado5 for resultado5 in resultado5 if resultado5 not in digito_ponto_barra]
     
-    return resultado6
+    resultado7 = [resultado6 for resultado6 in resultado6 if resultado6 not in ordinais_digitos]
+    
+    resultado8 = [resultado7 for resultado7 in resultado7 if resultado7 not in monetario]
+    
+    resultado9 = [resultado8 for resultado8 in resultado8 if resultado8 not in digitos]
+    
+    resultado10 = [resultado9 for resultado9 in resultado9 if resultado9 not in nomes_remover]
+    
+    resultado11 = [resultado10 for resultado10 in resultado10 if resultado10 not in stop_words_custom]
+    
+    return resultado11
 
 def palavras_frequentes(resultado):
     
