@@ -10,6 +10,7 @@ from nltk.probability import FreqDist
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
+from unidecode import unidecode
 import time
 
 """
@@ -179,13 +180,51 @@ def diconario(pesquisar):
         comfirmar = driver.find_element_by_id('q')
         comfirmar.send_keys(u'\ue007')
         time.sleep(5)
-        definicao = driver.find_element_by_xpath("//p[@class='significado textonovo']")
-        conteudo_definicao = definicao.get_attribute('outerHTML')
-        sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
-        p = sopa.find(name='p')
-        significados.append(i)
-        significados.append(p.get_text())
-        time.sleep(5)
+        try:
+            time.sleep(5)
+            definicao = driver.find_element_by_xpath("//p[@class='significado textonovo']")
+            conteudo_definicao = definicao.get_attribute('outerHTML')
+            sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
+            p = sopa.find(name='p')
+            significados.append(i)
+            significados.append(p.get_text())
+            time.sleep(5)
+        except Exception:
+            try:
+                link = driver.find_element_by_link_text(i)
+                link.click()
+                time.sleep(5)
+                definicao = driver.find_element_by_xpath("//p[@class='significado textonovo']")
+                conteudo_definicao = definicao.get_attribute('outerHTML')
+                sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
+                p = sopa.find(name='p')
+                significados.append(i)
+                significados.append(p.get_text())
+                time.sleep(5)
+                
+                
+                
+                """
+                print(Exception)
+                definicao = driver.find_element_by_xpath("//a[@class='_sugg']")
+                conteudo_definicao = definicao.get_attribute('outerHTML')
+                sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
+                a = sopa.find(name='a')
+                significados.append(i)
+                significados.append(a.get_text())
+                time.sleep(5)
+                """
+            
+            except Exception:
+                time.sleep(5)
+                definicao = driver.find_element_by_xpath("//p[@class='significado textonovo']")
+                conteudo_definicao = definicao.get_attribute('outerHTML')
+                sopa = BeautifulSoup(conteudo_definicao, 'html.parser')
+                p = sopa.find(name='p')
+                significados.append(i)
+                significados.append(p.get_text())
+                time.sleep(5)
+       
        
     
     
