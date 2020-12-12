@@ -10,7 +10,6 @@ from nltk.probability import FreqDist
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
-from unidecode import unidecode
 import time
 
 """
